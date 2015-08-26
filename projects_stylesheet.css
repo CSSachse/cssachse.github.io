@@ -1,0 +1,50 @@
+.projobj{
+	position:relative;
+	display:table-cell;
+	width:200px;
+	height:200px;
+	box-shadow:0px 0px 7px 4px #335544 inset;
+	border:3px solid #EEEEEE;
+	border-radius:20px;
+	padding:0px;
+	background-color:#CCCCCC;
+}
+.projobj:hover{
+	box-shadow:0px 0px 5px 4px white;
+	border:3px solid #DADADA
+}
+.projobjstuff{
+	width:180px;
+	height:180px;
+	border-radius:20px;
+	padding:10px;
+	background-color:rgba(0,0,0,.3);
+	color:white;
+	left:-217px;
+	font-family:"Open Sans Condensed", Helvetica, Sans-serif;
+	visibility:hidden;
+}
+.projobj:hover>.projobjstuff{
+	background-color:rgba(0,0,0,.3);
+	color:white;
+	visibility:visible;
+}
+.projobjstuff .linksa{
+	position:absolute;
+	bottom:0px;
+	height:20px;
+}
+.projobjstuff .linksa a{
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:0px;
+	padding-bottom:0px;
+	position:relative;
+	bottom:10px;
+	border-left:1px solid #AAAAAA;
+}
+body{/*this is a temporary style for testing purposes only; will be replaced by proper stylesheet once projects is up and running*/
+	background-color:#555555;
+	display:table;
+	border-spacing:10px;/*move these attributes to final when done*/
+}

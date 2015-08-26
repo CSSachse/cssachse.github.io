@@ -48,11 +48,42 @@
 	padding:0px;
 	left:50%
 }
+.cspic{
+	width:300px;
+	height:300px;
+	position:absolute;
+	left:50%;
+	margin-left:-150px;
+	border-radius:50%;
+	box-shadow: 2px 1px 4px 2px #333333;
+	z-index:3;
+}
+.csdescr{
+	color:white;
+	background-color:rgba(0,0,0,1);
+	width:1020px;
+	margin-left:-40px;
+	padding:15px;
+	padding-left:30px;
+	padding-right:30px;
+	position:relative;
+	top:265px;
+	z-index:2;
+	line-height:2em;
+}
+#about{
+	position:relative;
+	top:-40px;
+	height:25em;
+}
+.maidisp{
+	text-align:center;
+	font-size:3em;
+}
 </style>
 <script type="text/javascript">
-
 var curmai=0;
-var num_slides=4;
+var num_slides=5;
 var repter;
 var scrheight;
 var docheight;
@@ -83,7 +114,6 @@ function initpage(){
 	picstyle.height=(scrheight-50)+"px";
 	docheight=Math.max(document.body.scrollHeight,document.body.offsetHeight,document.documentElement.clientHeight,document.documentElement.scrollHeight,document.documentElement.offsetHeight);//Compatibility nightmare; ty stackoverflow
 }
-
 //show new slide in main/mai thingy
 function mupdate(){
 	//Temporary fix. Will ultimately add animation (fade or slide) once I can figure out how that works
@@ -101,7 +131,6 @@ function mupdate(){
 	clearTimeout(repter);
 	repter=self.setTimeout("mupdate();",4000);
 }
-
 //When user has scrolled down/up and threatens to obscure dropdown menus
 function menufuckup(direction){//direction is which way we want it to point
 	if(direction=="up"){
@@ -116,7 +145,6 @@ function menufuckup(direction){//direction is which way we want it to point
 		document.getElementById("social").style.top="55px";
 	}
 }
-
 //keep everything in order during scrolling
 function scrolupdate(){
 	scrollTop=(window.pageYOffset!==undefined)?window.pageYOffset:(document.documentElement||document.body.parentNode||document.body).scrollTop;
@@ -139,8 +167,6 @@ function scrolupdate(){
 		selectOption("recenttings");
 	}
 }
-
-
 function selectOption(id){
 	document.getElementById(id).className="menuoption active";
 }
@@ -149,7 +175,6 @@ function deselectOption(id){
 		document.getElementById(id).className="menuoption";
 	}
 }
-
 function switchenthdescr(){
 	i=Math.floor(enthdescrs.length*Math.random());
 	document.getElementById("enth").innerHTML="Lover of <span style='text-decoration:underline;width:8em;'>"+enthdescrs[i]+"</span>";
@@ -172,10 +197,7 @@ function switchenthdescr(){
 		
 		<div id="recentstuff" onmouseover="document.getElementById('recenttings').className='menuoption active';" onmouseout="document.getElementById('recenttings').className='menuoption';">
 			<!--This section will be populated by a js script-->
-			<a href="hey">foo</a>
-			<a>bar</a>
-			<a>baz</a>
-			<a>urmom</a>
+			<a href="hey">This feature is not yet complete! Sorry!</a>
 		</div>
 		
 	<div class="menuoption" id="projectslink">
@@ -205,25 +227,28 @@ function switchenthdescr(){
 <div id="main">
 	<div id="centerdisp" style="visibility:hidden;">
 	<div id="about">
-		<h1 style="position:relative;top:-80px;"><br/><br/>About me</h1>
-		hey you<br/>
-		hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>hey you<br/>
+		<h1>About me</h1>
+		<img src="resources/me.jpg" class="cspic"/>
+		<div class="csdescr"><br/>Hi there! This site isn't quite done yet, but feel free to look around what does exist. Anyway, I'm an Electrical Engineering/Computer Science (EECS) student at UC Berkeley, as well as a part time web developer and  full-time math and stats enthusiast interested mainly in highly scalable and parallelizable machine learning algorithms and bootstrapped statistical learning. My preferred tools inlcude Django, JQuery, MATLAB, and a large chalkboard, though I'm also familiar with other tools, including RoR and whiteboards. Check out my resume for the whole shebang, or just scroll down a bit to see what I've been working on recently!</div>
 	</div>
 	<div id="recent">
-		<h1 style="position:relative;top:-80px;"><br/><br/>Recent updates</h1>
+		<h1><br/><br/>Recent updates</h1>
 		<div class="slideting">
 			<!--selection of slides-->
-			<div id="maidisp0" class="maidisp" style="visibility:visible;background-image:url(resources/me.jpg);">
-				swag
+			<div id="maidisp0" class="maidisp">
+				Hey there,
 			</div>
 			<div id="maidisp1" class="maidisp">
-				bruh
+				Unfortunately this cool display isn't quite working yet
 			</div>
 			<div id="maidisp2" class="maidisp">
-				I'm cool
+				Sorry for the incomplete site
 			</div>
 			<div id="maidisp3" class="maidisp">
-				hire me pls!
+				I'm cool though I promise, I'm just working on other stuff right now.
+			</div>
+			<div id="maidisp4" class="maidisp">
+				Check out my github though!
 			</div>
 			<!--selection circles to choose current slide-->
 			<div class="selcircles">
@@ -231,6 +256,7 @@ function switchenthdescr(){
 				<div id="msel1" onclick="curmai=1;mupdate();"> </div>
 				<div id="msel2" onclick="curmai=2;mupdate();"> </div>
 				<div id="msel3" onclick="curmai=3;mupdate();"> </div>
+				<div id="msel4" onclick="curmai=4;mupdate();"> </div>
 			</div>
 		</div>
 	</div>

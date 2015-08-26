@@ -1,0 +1,56 @@
+<canvas id="cancan" height="700" width="2000" onmousemove="mousemoveting(event);" style="position:absolute;left:0px;top:0px;"></canvas>
+<script type="text/javascript">
+//get context
+	ctx=document.getElementById("cancan").getContext("2d");
+	CANW=2000;
+	CANH=700;
+//draw starting block
+	ctx.fillRect(0,0,1000,700);
+	ctx.font="100px Arial";
+	ctx.fillStyle="white";
+	ctx.fillText("Christoph  Sachse",55,100);
+//storage variables thingy
+	last=0;
+	rad=0;
+	dats=ctx.getImageData(0,0,2000,700);
+	
+	function fillCircle(x,y,r,c){
+		if(c){
+			ctx.globalCompositeOperation='source-over';
+			ctx.beginPath();
+			ctx.arc(x,y,r,0,7,true);
+			ctx.fill();
+		}
+		else{
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.beginPath();
+			ctx.arc(x,y,Math.floor(r),0,7,true);
+			ctx.fill();
+		}
+	}
+	
+	function mousemoveting(e){
+		x=e.clientX;
+		y=e.clientY;
+		color=dats.data[((y*(dats.width*4)) + (x*4)) + 3];
+		if(color==last){
+			if(rad<8){
+				rad++;
+			}
+		}else{
+			if(rad>0){
+				rad--;
+				if(!last){
+					rad--;
+				}
+				fillCircle(x,y,rad,last);
+			}else{
+				last=color;
+				dats=ctx.getImageData(0,0,2000,700);
+			}
+		}
+		
+	}
+	
+</script>
+	
