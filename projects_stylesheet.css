@@ -47,4 +47,5 @@ body{/*this is a temporary style for testing purposes only; will be replaced by 
 	background-color:#555555;
 	display:table;
 	border-spacing:10px;/*move these attributes to final when done*/
+	width:1000px;
 }

@@ -1,271 +1,178 @@
 <!DOCTYPE HTML>
-<!-- Copyright Christoph Sachse July 2015. All rights reserved -->
 <html>
 <head>
-<title>Christoph Sachse</title>
+  <title>Christoph Sachse</title>
 
-<!--links; technical shit-->
-<!--Font:open sans+open sans condensed-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<!--Site-wide stylesheet for convenience and cacheing-->
-<link rel="stylesheet" type="text/css" href="css_main.css"/>
-
-<!--Icon-->
-<link rel="icon" type="image/vnd.microsoft.icon" href="resources/favicon.ico" />
-
-<!--metas-->
-<meta name="Description" content="Christoph Sachse-software engineer" />
-<meta name="Keywords" content="christoph sachse, software engineering, data science, uc berkeley, diy, applied mathematics" />
-<meta name="copyright" content="" />
-<meta name="robots" content="index, follow" />
-<meta name="revisit-after" content="14 days" />
-<meta name="rating" content="general" />
-<meta http-equiv="Expires" content="0" />
-<meta name="distribution" content="global" />
-<meta name="verify-v1" content="SjN/+N+1dvovBYnaOFvCHIT3Hpt5o97e0Xv0xcZ+pH0=" />
-
-<!--back to normal stuff-->
-<style type="text/CSS">
-#picdisplay{
-	position:absolute;
-	margin:0px;
-	position:absolute;
-	height:1000px;
-	width:100%;
-	left:0px;
-	top:0px;
-	font-size:40px;
-	color:white;
-	font-family:'Open Sans Condensed', Arial, Sans-serif;
-}
-.slideting{
-	position:relative;
-	border:1px solid black;
-	height:300px;
-	width:480px;
-	margin-left:-250px;
-	padding:0px;
-	left:50%
-}
-.cspic{
-	width:300px;
-	height:300px;
-	position:absolute;
-	left:50%;
-	margin-left:-150px;
-	border-radius:50%;
-	box-shadow: 2px 1px 4px 2px #333333;
-	z-index:3;
-}
-.csdescr{
-	color:white;
-	background-color:rgba(0,0,0,1);
-	width:1020px;
-	margin-left:-40px;
-	padding:15px;
-	padding-left:30px;
-	padding-right:30px;
-	position:relative;
-	top:265px;
-	z-index:2;
-	line-height:2em;
-}
-#about{
-	position:relative;
-	top:-40px;
-	height:25em;
-}
-.maidisp{
-	text-align:center;
-	font-size:3em;
-}
-</style>
-<script type="text/javascript">
-var curmai=0;
-var num_slides=5;
-var repter;
-var scrheight;
-var docheight;
-var enthdescrs=["misselany", "philosophy", "Haskell", "hiking", "skiing", "optimization", "control theory", "homebrewing", "gj", "geology", "Cal","LaTeX", "machine learning", "Data", "stochastic signals", "Big Data", "Arduino", "Robotics"];
-//ensure page dimensions fit the screen and look nice
-function initpage(){
-	//get dimensions for later calculations
-	scrwidth = window.innerWidth|| document.documentElement.clientWidth|| document.body.clientWidth;
-	scrheight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
-	//align all elements properly
-	document.getElementById("menu").style.bottom="auto";
-	document.getElementById("menu").style.position="absolute";
-	document.getElementById("menu").style.top=(scrheight-50)+"px";
-	menufuckup("up");
-	document.getElementById("centerdisp").style.top=scrheight+"px";
-	document.getElementById("centerdisp").style.visibility="visible";
-	repter=self.setTimeout("mupdate();",4000);
-	z=self.setTimeout("switchenthdescr();",0);
-	//get right background image
-	picstyle=document.getElementById("picdisplay").style;
-	if(scrwidth>1382||scrheight>778){
-		picstyle.backgroundImage="url(resources/hohemunde.jpg)";
-	}else if(scrwidth>800||scrheight>450){
-		picstyle.backgroundImage="url(resources/hohemunde_desktop.jpg)";
-	}else{
-		picstyle.backgroundImage="url(resources/hohemunde_mobile.jpg)";
-	}
-	picstyle.height=(scrheight-50)+"px";
-	docheight=Math.max(document.body.scrollHeight,document.body.offsetHeight,document.documentElement.clientHeight,document.documentElement.scrollHeight,document.documentElement.offsetHeight);//Compatibility nightmare; ty stackoverflow
-}
-//show new slide in main/mai thingy
-function mupdate(){
-	//Temporary fix. Will ultimately add animation (fade or slide) once I can figure out how that works
-	for(j=0;j<curmai;j++){
-		document.getElementById("maidisp"+j).style.visibility="hidden";
-		document.getElementById("msel"+j).className="";
-	}
-	for(j=curmai+1;j<num_slides;j++){
-		document.getElementById("maidisp"+j).style.visibility="hidden";
-		document.getElementById("msel"+j).className="";
-	}
-	document.getElementById('maidisp'+curmai).style.visibility="visible";
-	document.getElementById("msel"+curmai).className="active";
-	curmai=(curmai+1)%4;
-	clearTimeout(repter);
-	repter=self.setTimeout("mupdate();",4000);
-}
-//When user has scrolled down/up and threatens to obscure dropdown menus
-function menufuckup(direction){//direction is which way we want it to point
-	if(direction=="up"){
-		document.getElementById("recentstuff").style.bottom="55px";
-		document.getElementById("recentstuff").style.top="auto";
-		document.getElementById("social").style.bottom="55px";
-		document.getElementById("social").style.top="auto";
-	}else{
-		document.getElementById("recentstuff").style.bottom="auto";
-		document.getElementById("recentstuff").style.top="55px";
-		document.getElementById("social").style.bottom="auto";
-		document.getElementById("social").style.top="55px";
-	}
-}
-//keep everything in order during scrolling
-function scrolupdate(){
-	scrollTop=(window.pageYOffset!==undefined)?window.pageYOffset:(document.documentElement||document.body.parentNode||document.body).scrollTop;
-	if(scrollTop>scrheight-55){
-		document.getElementById("menu").style.position="fixed";
-		document.getElementById("menu").style.top="0px";
-		menufuckup("down");
-		deselectOption("recenttings");
-		selectOption("aboutlink");
-	}
-	else{
-		document.getElementById("menu").style.position="absolute";
-		document.getElementById("menu").style.top=(scrheight-50)+"px";
-		menufuckup("up");
-		deselectOption("aboutlink");
-	}
-	if(scrollTop>Math.min(docheight-scrheight-100,document.getElementById("recent").getBoundingClientRect().top)-document.body.getBoundingClientRect().top){
-	//Has either reached bottom or start of recent (inefficient due to repeated getEl each time);
-		deselectOption("aboutlink");
-		selectOption("recenttings");
-	}
-}
-function selectOption(id){
-	document.getElementById(id).className="menuoption active";
-}
-function deselectOption(id){
-	if(document.getElementById(id).className=="menuoption active"){
-		document.getElementById(id).className="menuoption";
-	}
-}
-function switchenthdescr(){
-	i=Math.floor(enthdescrs.length*Math.random());
-	document.getElementById("enth").innerHTML="Lover of <span style='text-decoration:underline;width:8em;'>"+enthdescrs[i]+"</span>";
-	z=self.setTimeout("switchenthdescr()",10000);
-}
-</script>
+  <!--links; technical shit-->
+  <!--Font:open sans+open sans condensed-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <!--jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!--Fix viewport to right level-->
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <!--Google analtyics API-->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66968807-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <!--Icon-->
+  <link rel="icon" type="image/vnd.microsoft.icon" href="resources/favicon.ico" />
+  <!--metas-->
+  <meta name="Description" content="Christoph Sachse-software engineer" />
+  <meta name="Keywords" content="christoph sachse, software engineering, data science, uc berkeley, diy, applied mathematics" />
+  <meta name="copyright" content="" />
+  <meta name="robots" content="index, follow" />
+  <meta name="revisit-after" content="14 days" />
+  <meta name="rating" content="general" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="distribution" content="global" />
+  <meta name="verify-v1" content="SjN/+N+1dvovBYnaOFvCHIT3Hpt5o97e0Xv0xcZ+pH0=" />
+  <link rel="stylesheet" type="text/css" href="csrv.css"/>
+  <script type="text/javascript">
+    scrheight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+    lastscroll=0;
+    function scrollting(){
+      scrollTop=(window.pageYOffset!==undefined)?window.pageYOffset:(document.documentElement||document.body.parentNode||document.body).scrollTop;
+      if (scrollTop<scrheight-50&&lastscroll<scrheight-50){
+        document.getElementById("menu").style.backgroundPosition="0px "+Math.round(-.7*scrollTop)+"px";
+      } else if (scrollTop<scrheight-50&&lastscroll>scrheight-50) {
+        document.getElementById("menu").style.backgroundPosition="0px "+Math.round(-.7*scrollTop)+"px";
+        document.getElementById("menu").style.boxShadow="none";
+        document.getElementById("menu").style.backgroundImage="url(resources/hohemunde_desktop.jpg)";
+      } else if (scrollTop>scrheight-50&&lastscroll<scrheight-50){
+        document.getElementById("menu").style.backgroundImage="none";
+        document.getElementById("menu").style.boxShadow="0px 0px 3px 1px #333333";
+      }
+      lastscroll=scrollTop;
+    }
+    function menusel(which){
+      if(document.getElementById(which).className!="menuoption active"){
+        document.getElementById("home").className="menuitem";
+        document.getElementById("about").className="menuitem";
+        document.getElementById("home").className="menuitem";
+        document.getElementById("recent").className="menuitem";
+        document.getElementById("blog").className="menuitem";
+        document.getElementById(which).className="menuitem active";
+      }
+    }
+  </script>
 </head>
-<body onload="initpage()" onscroll="scrolupdate()" onresize="initpage()">
+<body onscroll="scrollting()">
+
+  <div id="contactoverlay" onclick="document.getElementById('contactoverlay').style.display='none';">
+    <div class="social" onclick="'';">
+      <a href="https://www.facebook.com/CSSachse"><img src="resources/facebook.png" title="Facebook me!"/></a>
+      <a href="https://www.linkedin.com/in/cssachse"><img src="resources/linkedin.png" title="Connect with me on linkedIn!"/></a>
+      <a href="http://www.github.com/cssachse"><img src="resources/github.png" title="Find me on github!"/></a>
+      <a href="mailto:christoph.sachse@berkeley.edu?Subject=Hello%20there"><img src="resources/mail.png" title="Email me!"/></a>
+      <a href="https://www.quora.com/Christoph-Sachse"><img src="resources/quora.png" title="Quora!"/></a>
+      <a href="https://plus.google.com/102912692448201409760/posts"><img src="resources/googleplus.png" title="...Google plus me?"/></a>
+    </div>
+  </div>
+
+  <div id="menu">
+    <span class="menuitem" id="contact" onclick="document.getElementById('contactoverlay').style.display='block';">
+      Contact
+    </span>
+    <span class="menuitem" id="blog" onclick="window.location.href='http://www.cscde.tumblr.com'">
+      Blog
+    </span>
+    <span class="menuitem" id="recent" onclick="window.scrollTo(0,5*scrheight); menusel('recent')">
+      Recent
+    </span>
+    <span class="menuitem" id="about" onclick="window.scrollTo(0,scrheight); menusel('about')";>
+      About
+    </span>
+    <span class="menuitem" id="home" onclick="window.scrollTo(0,0); menusel('home')">
+      Home
+    </span>
+  </div>
 
 
-<div id="menu" style="position:fixed;bottom:0px;top:auto;">
-	<div class="menublank">
-	</div>
-	<div class="menuoption" id="aboutlink">
-		<span class="pseudolink" onclick="window.location.href='#about';">About me</span>
-	</div>
-	<div class="menuoption" id="recenttings" id="recentlink">
-		<span class="pseudolink" onclick="window.location.href='#recent';">Recent</span>
-	</div>
-		
-		<div id="recentstuff" onmouseover="document.getElementById('recenttings').className='menuoption active';" onmouseout="document.getElementById('recenttings').className='menuoption';">
-			<!--This section will be populated by a js script-->
-			<a href="hey">This feature is not yet complete! Sorry!</a>
-		</div>
-		
-	<div class="menuoption" id="projectslink">
-		<span class="pseudolink" onclick="window.location.href='#';" >Projects</span>
-	</div>
-	<div class="menuoption">
-		<span class="pseudolink" onclick="window.location.href='#';" id="bloglink">Blog</span>
-	</div>
-	<div class="menuoption" id="socopt">
-		<span class="pseudolink" onclick="window.location.href='#';">Contact</span>
-	</div>
-		<div id="social" onmouseover="document.getElementById('socopt').className='menuoption sochov';" onmouseout="document.getElementById('socopt').className='menuoption';">
-			<a href="https://www.facebook.com/CSSachse"><img src="resources/facebook.png" title="Facebook me!"/></a>
-			<a href="https://www.linkedin.com/in/cssachse"><img src="resources/linkedin.png" title="Connect with me on linkedIn!"/></a>
-			<a href="http://www.github.com/cssachse"><img src="resources/github.png" title="Find me on github!"/></a>
-			<a href="mailto:christoph.sachse@berkeley.edu?Subject=Hello%20there"><img src="resources/mail.png" title="Email me!"/></a>
-			<a href="https://www.quora.com/Christoph-Sachse"><img src="resources/quora.png" title="Quora!"/></a>
-			<a href="https://plus.google.com/102912692448201409760/posts"><img src="resources/googleplus.png" title="...Google plus me?"/></a>
-		</div>
-</div>
-<div id="picdisplay">
-	<span style="position:absolute;top:3em;left:4em;">Christoph Sachse</span>
-	<span style="position:absolute;top:4.5em;left:6em;">Student</span>
-	<span style="position:absolute;top:6em;left:8em;">Engineer</span>
-	<span style="position:absolute;top:7.5em;left:10em;" id="enth">enthusiast</span>
-</div>
-<div id="main">
-	<div id="centerdisp" style="visibility:hidden;">
-	<div id="about">
-		<h1>About me</h1>
-		<img src="resources/me.jpg" class="cspic"/>
-		<div class="csdescr"><br/>Hi there! This site isn't quite done yet, but feel free to look around what does exist. Anyway, I'm an Electrical Engineering/Computer Science (EECS) student at UC Berkeley, as well as a part time web developer and  full-time math and stats enthusiast interested mainly in highly scalable and parallelizable machine learning algorithms and bootstrapped statistical learning. My preferred tools inlcude Django, JQuery, MATLAB, and a large chalkboard, though I'm also familiar with other tools, including RoR and whiteboards. Check out my resume for the whole shebang, or just scroll down a bit to see what I've been working on recently!</div>
-	</div>
-	<div id="recent">
-		<h1><br/><br/>Recent updates</h1>
-		<div class="slideting">
-			<!--selection of slides-->
-			<div id="maidisp0" class="maidisp">
-				Hey there,
-			</div>
-			<div id="maidisp1" class="maidisp">
-				Unfortunately this cool display isn't quite working yet
-			</div>
-			<div id="maidisp2" class="maidisp">
-				Sorry for the incomplete site
-			</div>
-			<div id="maidisp3" class="maidisp">
-				I'm cool though I promise, I'm just working on other stuff right now.
-			</div>
-			<div id="maidisp4" class="maidisp">
-				Check out my github though!
-			</div>
-			<!--selection circles to choose current slide-->
-			<div class="selcircles">
-				<div id="msel0" onclick="curmai=0;mupdate();"class="active"> </div>
-				<div id="msel1" onclick="curmai=1;mupdate();"> </div>
-				<div id="msel2" onclick="curmai=2;mupdate();"> </div>
-				<div id="msel3" onclick="curmai=3;mupdate();"> </div>
-				<div id="msel4" onclick="curmai=4;mupdate();"> </div>
-			</div>
-		</div>
-	</div>
-		<div id="footer">
-		<p>copywright christoph sachse 2015</p>
-		</div>
-	</div>
-</div>
+
+  <div id="frontpage">
+
+  </div>
+
+  <div class="mainholder">
+    <div id="mainsects">
+      <div id="aboutsect">
+        <h1>About me</h1>
+        <div class="mepic"></div>
+        <div class="medescr">
+          Hi there! This site isn't QUITE done yet, but feel free to look around! Anyway, I'm an student studying computer science and mathematics at UC Berkeley, as well as a part time web developer and full-time math and stats enthusiast.
+          I'm interested mainly in scalable machine learning algorithms, as well as bootstrapped methods in statistical learning. My preferred tools inlcude Django, R, MATLAB, and a large chalkboard, though I'm also familiar with other tools,
+           including RoR and whiteboards. Check out my resume for the whole shebang or just scroll down a bit to see some of the cool stuff I've been working on recently!
+           <br/><br/> Want to get in touch? Contact me on any of the social media sources I check, or just email me like a normal person. I'm fine with either :)
+          <div class="aboutsupplements">
+            <div class="resumelink" onclick="window.location.href='resume.pdf';"><img src="resources/filegeneric.png">resum&eacute</div><br/>
+            <div class="social" style="margin-top:15px;">
+              <a href="https://www.facebook.com/CSSachse"><img src="resources/facebook.png" title="Facebook me!"/></a>
+              <a href="https://www.linkedin.com/in/cssachse"><img src="resources/linkedin.png" title="Connect with me on linkedIn!"/></a>
+              <a href="http://www.github.com/cssachse"><img src="resources/github.png" title="Find me on github!"/></a>
+              <a href="mailto:christoph.sachse@berkeley.edu?Subject=Hello%20there"><img src="resources/mail.png" title="Email me!"/></a>
+              <a href="https://www.quora.com/Christoph-Sachse"><img src="resources/quora.png" title="Quora!"/></a>
+              <a href="https://plus.google.com/102912692448201409760/posts"><img src="resources/googleplus.png" title="...Google plus me?"/></a>
+            </div>
+          </div>
+        </div>
 
 
+      </div>
+
+
+      <div id="recentsect">
+        <h1>Recent Stuff</h1>
+        <div class="slideshow">
+          <div class="slideting" style="background-color:#806030;">
+            <div class="slideheader" onclick="window.location.href='http://www.cssachse.github.io/circ-edit-tikz';">
+              <img src="resources/circ.edit.png"/>
+              <br/>
+              circ.edit
+            </div>
+            <span class="slidedescr">
+              <hr/>
+              Inspired by the incredible difficulty of inserting circuit diagrams into LATEX documents with the available tools,
+              this online circuit-drawing tool provides full support for most circuit elements, direct, hassle-free
+              export into circuitikz LATEX (no images needed), as well as localstorage, JSON, and png exports.
+            </span>
+          </div>
+          <div class="slideting" style="background-color:#809f8b;">
+            <div class="slideheader" onclick="window.location.href='http://www.cssachse.github.io/';">
+              <img src="resources/Personal site.png"/>
+              <br/>
+              Personal site
+            </div>
+            <span class="slidedescr">
+              <hr/>
+              Yep. This (AMAZING, ONE OF A KIND, INCREDIBLE) one right here. It's a pretty great site, if I do say so
+              myself, and I learned a LOT about design from making a page where functionality and
+              javascript was less important than CSS and visuals, and I finally got the hang of CSS3 transitions/animations.
+            </span>
+          </div>
+          <div class="slideting" style="background-color:#208065">
+            <div class="slideheader" onclick="window.location.href='http://www.github.com/cssachse/Ogjlp';">
+              <img src="resources/gj Lang.png"/>
+              <br/>
+              gj Lang project
+            </div>
+            <span class="slidedescr">
+              <hr/>
+              (In progress) gj is a (somewhat satirical) matrix-based functional imperative programming language.
+              It is currently targeted as an esolang and compiles to C, but may or may not become
+              a serious language in the future, depending on development and popularity. <a href="http://www.github.com/cssachse/Ogjlp"> Read more&gt </a>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 </body>
 </html>
